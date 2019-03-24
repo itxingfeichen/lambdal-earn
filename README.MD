@@ -31,6 +31,25 @@
     * 使用条件
         * lambda实现体中调用方法的参数值和返回值类型必须与函数式接口中抽象方法的参数列表和返回值一致
         * 若lambda参数列表中第一个参数是实例方法的调用者，第二个参数是实例方法的参数，才可以使用 类名::方法名
+## Stream APIA
 * java8的构造器引用以及数组引用
-    * 语法格式
+    * 对象语法格式
         * ClassName::new
+    * 数组语法格式
+        * ClassName[]::new
+* java8的流操作（Stream）
+    * 流:是数据渠道，用于操作数据（集合，数组）源所产生的元素序列
+        * 注意点
+            * 流自己本身不会存储数据
+            * Stream不会改变愿数据对象，处理结束后会产生一个新的Stream
+            * Stream操作是延迟的，意味着会等到需要的时候再计算
+        * 流的操作
+            * 创建Stream (串行流和并行流)
+                * 创建流通过Collection的stream()方法和parallelStream()
+                * 通过Arrays.stream()方法获取数组流
+                * 通过Stream的静态of方法创建流
+                * 创建无限流，通过Stream.iterate方法创建
+                * 通过Stream.generate
+            * 中间操作
+            * 终端操作（根据用户需要返回结果）
+        
