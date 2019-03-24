@@ -4,7 +4,6 @@ package com.github.lambda.coreinterface;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
