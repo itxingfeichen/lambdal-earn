@@ -55,7 +55,7 @@ public class Java8CoreInterfaceTest {
 
 
     /**
-     * 供给型接口测试
+     * 断言型接口测试
      */
     @Test
     public void testPredicate(){
