@@ -65,6 +65,23 @@ public class StreamApiTest {
         rStream.forEach(System.out::println);
     }
 
+    @Test
+    public void testSorted(){
+        List<String> sorts = Arrays.asList("222","888","444","333","111","000");
+        // 自然排序
+        sorts.stream().sorted().forEach(System.out::println);
+
+        // 定制排序
+        users.get().stream().sorted((x,y)->{
+            if(x.getAge().compareTo(y.getAge())==0){
+              return  x.getUserName().compareTo(y.getUserName());
+            }else{
+              return  x.getAge().compareTo(y.getAge());
+            }
+        }).forEach(System.out::println);
+
+    }
+
     /**
      * 过滤字符串
      * @param chars
@@ -73,8 +90,6 @@ public class StreamApiTest {
     public static List<Character> filterCharacter(String chars){
 
         List<Character> character = Lists.newArrayList();
-
-
         for (char c : chars.toCharArray()) {
             character.add(c);
         }
