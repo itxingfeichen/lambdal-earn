@@ -56,5 +56,6 @@
                           flagMap接收一个函数作为参数，将流中每个值都换成另一个流，然后把所有流连成一个流
                 * 排序：自然排序（Comparable），指定排序（Comparator）
                 * 查找与匹配：allMatch(),anyMatch(),noneMatch(),findFirst(),findAny(),count(),max(),min()
+                * reduce（规约）：可以将流中的元素反复结合起来得到一个新值
             * 终端操作（根据用户需要返回结果）
         
