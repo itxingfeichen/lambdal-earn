@@ -4,10 +4,7 @@ import com.github.lambda.model.User;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -115,6 +112,80 @@ public class StreamApiTest {
         }).forEach(System.out::println);
 
     }
+
+    /**
+     * 测试reduce用法
+     * 可以将流中的元素反复结合起来得到一个新值
+     */
+    @Test
+    public void testReduce() {
+
+        // reduce使用方法1
+        List<Integer> reduces = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
+        Optional<Integer> reduce = reduces.stream().reduce(Integer::sum);
+        System.out.println(reduce.get());
+        // reduce使用方法2
+        System.out.println(reduces.stream().reduce(0, (x, y) -> x + y));
+        // reduce使用方法3
+        Integer reduce1 = reduces.stream().reduce(0, (x, y) -> x + y, Integer::compareTo);
+        System.out.println(reduce1);
+    }
+
+
+    /**
+     * 收集测试
+     */
+    @Test
+    public void testCollect(){
+        // type one：通过map映射出需要的内容然后整合为一个List
+        List<Integer> collect = users.get().stream().map(User::getAge).sorted().collect(Collectors.toList());
+        collect.forEach(System.out::println);
+
+        // type two：通过map映射出需要的内容然后整合为一个Map
+        Set<Integer> sets = users.get().stream().map(User::getAge).sorted().collect(Collectors.toCollection(LinkedHashSet::new));
+        sets.forEach(System.out::println);
+
+        // type three：转换为 map
+        Map<Integer, String> maps = users.get().stream().collect(Collectors.toMap(User::getAge, User::getUserName));
+        System.out.println(maps);
+
+        // type three：转换为 map(对用户名进行去重复)
+        Map<String, Integer> maps1 = users.get().stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(User::getUserName))), ArrayList::new)).stream().collect(Collectors.toMap(User::getUserName, User::getAge));
+        System.out.println(maps1);
+
+        // type four：获取年龄平均值
+        Double ageAvg = users.get().stream().collect(Collectors.averagingDouble(User::getAge));
+        System.out.println(ageAvg);
+        // type five：获取总数量
+        System.out.println(users.get().stream().collect(Collectors.counting()));
+
+        // type six：根据名字分组
+        Map<String, List<User>> collect1 = users.get().stream().collect(Collectors.groupingBy(User::getUserName));
+        System.out.println(collect1);
+
+        // type seven：多重分组,根据名字分组,然后根据年纪分组
+        Map<String, Map<Integer, List<User>>> collect2 = users.get().stream().collect(Collectors.groupingBy(User::getUserName, Collectors.groupingBy(User::getAge)));
+        System.out.println(collect2);
+
+        // type eight：int类型合集
+        IntSummaryStatistics collect3 = users.get().stream().collect(Collectors.summarizingInt(User::getAge));
+        System.out.println(collect3.getAverage());
+        System.out.println(collect3.getCount());
+        System.out.println(collect3.getMax());
+        System.out.println(collect3.getSum());
+        // type nine：获取最大
+        Optional<Integer> collect4 = users.get().stream().map(User::getAge).collect(Collectors.maxBy(Integer::compareTo));
+        System.out.println(collect4.get());
+        // type ten：分片
+        Map<Boolean, List<User>> collect5 = users.get().stream().collect(Collectors.partitioningBy(x -> x.getAge() % 4 == 0));
+        System.out.println(collect5);
+
+        // type eleven：字符串链接
+        String collect6 = users.get().stream().map(User::getUserName).collect(Collectors.joining(","));
+        System.out.println(collect6);
+    }
+
+
 
     /**
      * 过滤字符串
