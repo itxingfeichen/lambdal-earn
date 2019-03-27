@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 public class StreamApiTest {
 
 
-    final ThreadLocal<List<User>> users = ThreadLocal.withInitial(() -> Arrays.asList(
+    public static final ThreadLocal<List<User>> users = ThreadLocal.withInitial(() -> Arrays.asList(
 
             new User("张三", 1, "张三@github.com"),
             new User("李四", 21, "李四@github.com"),

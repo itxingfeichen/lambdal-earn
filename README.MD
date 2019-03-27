@@ -59,4 +59,22 @@
             * 终端操作（根据用户需要返回结果）
                 * reduce（规约）：可以将流中的元素反复结合起来得到一个新值
                 * collect：收集，将流转换为其他形式，有工具类Collectors用于给流中的元素进行汇总操作
+            * 并行流：100%利用cpu
+            
+## 容器类Optional
+* Optional：java8提供的用于避免空指针的容器类
+    * 包含的方法及其含义
+        * Optional.of(T t) 创建一个实例
+        * Optional.empty() 创建一个空Optional实例
+        * Optional.ofNullable(T t) 若t为空则返回一个空实例，否则返回Optional实例
+        * Optional.isPresent() 判断是否包含值
+        * Optional.orElse(T t) 如果调用对象包含值，则返回该值，否则返回t
+        * Optional.orElseGet(Supplier s) 如果调用对象包含值，则返回该值，否则返回s获取的值
+        * Optional.map(Function f)  如果有值则对其处理，返回一个Optional实例，否则返回Optional.empty()
+        * Optional.flagMap(Function mapper)  与map类似，要求返回值为Optional实例
+            
+## java8接口中实现默认方法和静态方法
+*   接口中可含有一default修饰的方法和静态方法
+*   接口中的方法和类种方法冲突是，"类优先"，如果实现的两个接口都含有相同方法，要求实现类必须实现其中一个接口的 方法
+            
         
